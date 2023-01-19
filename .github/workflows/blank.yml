@@ -1,0 +1,15 @@
+name: update GeoIP
+on: 
+  workflow_dispatch:
+  push:
+  schedule:
+    - cron: '20 */12 * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+        - run: curl -sX GET https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${{ secrets.MAX_MIND_LICENSE_KEY }}&suffix=zip
+        - run: ls -la
+        # - uses: stefanzweifel/git-auto-commit-action@v4.14.1
