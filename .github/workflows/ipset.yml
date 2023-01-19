@@ -1,4 +1,4 @@
-name: update GeoIP
+name: update ipset
 on:
   workflow_dispatch:
   schedule:
