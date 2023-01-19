@@ -14,5 +14,7 @@ jobs:
           run: |
             curl -sX GET "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${{ secrets.MAX_MIND_LICENSE_KEY }}&suffix=zip" -o GeoLite2-ASN-CSV.zip
             unzip GeoLite2-ASN-CSV.zip
-            ls -la
+            rm GeoLite2-ASN-CSV.zip
+            mv GeoLite2-ASN-CSV* GeoLite2-ASN-CSV
+            ls -lah
         # - uses: stefanzweifel/git-auto-commit-action@v4.14.1
