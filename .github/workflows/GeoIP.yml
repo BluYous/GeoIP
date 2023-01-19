@@ -17,4 +17,4 @@ jobs:
             rm GeoLite2-ASN-CSV.zip
             mv GeoLite2-ASN-CSV* GeoLite2-ASN-CSV
             ls -lah
-        - uses: stefanzweifel/git-auto-commit-action@v4.14.1
+        - uses: stefanzweifel/git-auto-commit-action@v4
