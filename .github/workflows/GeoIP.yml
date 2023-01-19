@@ -23,11 +23,4 @@ jobs:
             unzip GeoLite2-Country-CSV.zip
             rm GeoLite2-Country-CSV.zip
             mv GeoLite2-Country-CSV* GeoLite2-Country-CSV
-        - name: update GeoLite2-City-CSV
-          run: |
-            rm -rf GeoLite2-City-CSV
-            curl -sX GET "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City-CSV&license_key=${{ secrets.MAX_MIND_LICENSE_KEY }}&suffix=zip" -o GeoLite2-City-CSV.zip
-            unzip GeoLite2-City-CSV.zip
-            rm GeoLite2-City-CSV.zip
-            mv GeoLite2-City-CSV* GeoLite2-City-CSV
         - uses: stefanzweifel/git-auto-commit-action@v4
