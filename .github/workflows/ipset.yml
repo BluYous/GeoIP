@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: install ipset
+      - name: install csvkit
         run: |
-          sudo apt install ipset
+          sudo pip install csvkit
 
       - name: update ipset of CHINA_IP
         run: |
