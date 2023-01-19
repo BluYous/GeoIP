@@ -1,7 +1,6 @@
 name: update GeoIP
 on: 
   workflow_dispatch:
-  push:
   schedule:
     - cron: '20 */12 * * *'
 jobs:
