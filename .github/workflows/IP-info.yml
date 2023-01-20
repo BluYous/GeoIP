@@ -13,7 +13,9 @@ jobs:
       - name: install mmdbinspect
         run: |
           go install github.com/maxmind/mmdbinspect/cmd/mmdbinspect
+          downloadUrl=$(curl -sX GET "https://api.github.com/repos/maxmind/mmdbinspect/releases/latest" | jq -r ".assets[].browser_download_url" | grep "amd64\.deb")
+          wget -q "$downloadUrl" -O - | dpkg -i
+
       - name: get IP info
         run: |
           mmdbinspect -db ./GeoLite2-ASN/GeoLite2-ASN.mmdb -db ./GeoLite2-Country/GeoLite2-Country.mmdb -db ./GeoLite2-City/GeoLite2-City.mmdb "${{ github.event.inputs.ip }}"
-      - uses: stefanzweifel/git-auto-commit-action@v4
