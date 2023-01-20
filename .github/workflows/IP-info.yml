@@ -12,9 +12,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: install mmdbinspect
         run: |
-          go install github.com/maxmind/mmdbinspect/cmd/mmdbinspect
           downloadUrl=$(curl -sX GET "https://api.github.com/repos/maxmind/mmdbinspect/releases/latest" | jq -r ".assets[].browser_download_url" | grep "amd64\.deb")
-          wget -q "$downloadUrl" -O - | dpkg -i
+          curl -so "mmdbinspect.deb" "$downloadUrl"
+          dpkg -i
 
       - name: get IP info
         run: |
