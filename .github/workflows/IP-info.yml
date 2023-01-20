@@ -13,8 +13,8 @@ jobs:
       - name: install mmdbinspect
         run: |
           downloadUrl=$(curl -sX GET "https://api.github.com/repos/maxmind/mmdbinspect/releases/latest" | jq -r ".assets[].browser_download_url" | grep "amd64\.deb")
-          curl -so "mmdbinspect.deb" "$downloadUrl"
-          sudo dpkg -i
+          curl -sLo "mmdbinspect.deb" "$downloadUrl"
+          sudo dpkg -i mmdbinspect.deb
 
       - name: get IP info
         run: |
