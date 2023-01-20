@@ -1,0 +1,27 @@
+name: get IP info
+on:
+  workflow_dispatch:
+    inputs:
+      ip:
+        description: 'IP'
+        required: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: update GeoLite2-ASN-CSV
+        run: |
+          rm -rf GeoLite2-ASN-CSV
+          curl -sX GET "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${{ secrets.MAX_MIND_LICENSE_KEY }}&suffix=zip" -o GeoLite2-ASN-CSV.zip
+          unzip GeoLite2-ASN-CSV.zip
+          rm GeoLite2-ASN-CSV.zip
+          mv GeoLite2-ASN-CSV* GeoLite2-ASN-CSV
+      - name: update GeoLite2-Country-CSV
+        run: |
+          rm -rf GeoLite2-Country-CSV
+          curl -sX GET "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=${{ secrets.MAX_MIND_LICENSE_KEY }}&suffix=zip" -o GeoLite2-Country-CSV.zip
+          unzip GeoLite2-Country-CSV.zip
+          rm GeoLite2-Country-CSV.zip
+          mv GeoLite2-Country-CSV* GeoLite2-Country-CSV
+      - uses: stefanzweifel/git-auto-commit-action@v4
