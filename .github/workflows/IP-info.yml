@@ -14,7 +14,7 @@ jobs:
         run: |
           downloadUrl=$(curl -sX GET "https://api.github.com/repos/maxmind/mmdbinspect/releases/latest" | jq -r ".assets[].browser_download_url" | grep "amd64\.deb")
           curl -so "mmdbinspect.deb" "$downloadUrl"
-          dpkg -i
+          sudo dpkg -i
 
       - name: get IP info
         run: |
