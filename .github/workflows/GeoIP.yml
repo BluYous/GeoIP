@@ -2,7 +2,7 @@ name: update GeoIP
 on:
   workflow_dispatch:
   schedule:
-    - cron: '20 */12 * * *'
+    - cron: '0 0 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
