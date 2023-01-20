@@ -1,0 +1,19 @@
+name: get IP info
+on:
+  workflow_dispatch:
+    inputs:
+      ip:
+        description: 'IP'
+        required: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: install mmdbinspect
+        run: |
+          go install github.com/maxmind/mmdbinspect/cmd/mmdbinspect
+      - name: get IP info
+        run: |
+          mmdbinspect -db ./GeoLite2-ASN/GeoLite2-ASN.mmdb -db ./GeoLite2-Country/GeoLite2-Country.mmdb -db ./GeoLite2-City/GeoLite2-City.mmdb "${{ github.event.inputs.ip }}"
+      - uses: stefanzweifel/git-auto-commit-action@v4
