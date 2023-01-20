@@ -1,10 +1,13 @@
-name: get IP info
+name: get IP or domain info
 on:
   workflow_dispatch:
     inputs:
       ip:
         description: 'IP'
-        required: true
+        required: false
+      domain:
+        description: 'Domain'
+        required: false
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,6 +19,16 @@ jobs:
           curl -sLo "mmdbinspect.deb" "$downloadUrl"
           sudo dpkg -i mmdbinspect.deb
 
+      - name: get ips by domain
+        if: ${{ github.event.inputs.domain != '' }}
+        run: |
+          dig "${{ github.event.inputs.domain }}" +short -4 | grep -v '\.$' >> ip.txt
+
+      - name: save request ip into temp file
+        if: ${{ github.event.inputs.ip != '' }}
+        run: |
+          echo ${{ github.event.inputs.ip }} >> ip.txt
+
       - name: get IP info
         run: |
-          mmdbinspect -db ./GeoLite2-ASN/GeoLite2-ASN.mmdb -db ./GeoLite2-Country/GeoLite2-Country.mmdb -db ./GeoLite2-City/GeoLite2-City.mmdb "${{ github.event.inputs.ip }}"
+          cat ip.txt | xargs mmdbinspect -db ./GeoLite2-ASN/GeoLite2-ASN.mmdb -db ./GeoLite2-Country/GeoLite2-Country.mmdb -db ./GeoLite2-City/GeoLite2-City.mmdb
