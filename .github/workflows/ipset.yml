@@ -14,14 +14,14 @@ jobs:
 
       - name: update ipset of CHINA_IP
         run: |
-          curl -o /tmp/ip_cidr.txt https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt
+          curl -sLRJo /tmp/ https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt
           ipsetName=CHINA_IP
           mkdir -p ipset
           echo "create $ipsetName hash:net" >./ipset/ipset-$ipsetName.txt
           while IFS= read -r line; do
             echo "add $ipsetName $line" >>./ipset/ipset-$ipsetName.txt
-          done </tmp/ip_cidr.txt
-          rm /tmp/ip_cidr.txt
+          done </tmp/china_ip_list.txt
+          rm /tmp/china_ip_list.txt
 
       - name: update ipset of CLOUDFLARENET
         run: |
