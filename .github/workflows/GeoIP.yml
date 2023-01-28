@@ -11,35 +11,35 @@ jobs:
       - name: update GeoLite2-ASN-CSV
         run: |
           rm -rf GeoLite2-ASN-CSV
-          curl -sX GET "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${{ secrets.MAX_MIND_LICENSE_KEY }}&suffix=zip" -o GeoLite2-ASN-CSV.zip
-          unzip GeoLite2-ASN-CSV.zip
-          rm GeoLite2-ASN-CSV.zip
+          curl -sLRJO "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${{ secrets.MAX_MIND_LICENSE_KEY }}&suffix=zip"
+          unzip GeoLite2-ASN-CSV*.zip
+          rm GeoLite2-ASN-CSV*.zip
           mv GeoLite2-ASN-CSV_* GeoLite2-ASN-CSV
 
       - name: update GeoLite2-Country-CSV
         run: |
           rm -rf GeoLite2-Country-CSV
-          curl -sX GET "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=${{ secrets.MAX_MIND_LICENSE_KEY }}&suffix=zip" -o GeoLite2-Country-CSV.zip
-          unzip GeoLite2-Country-CSV.zip
-          rm GeoLite2-Country-CSV.zip
+          curl -sLRJO "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=${{ secrets.MAX_MIND_LICENSE_KEY }}&suffix=zip"
+          unzip GeoLite2-Country-CSV*.zip
+          rm GeoLite2-Country-CSV*.zip
           mv GeoLite2-Country-CSV_* GeoLite2-Country-CSV
 
       - name: update GeoLite2-ASN
         run: |
           rm -rf GeoLite2-ASN
-          wget -q "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN&license_key=${{ secrets.MAX_MIND_LICENSE_KEY }}&suffix=tar.gz" -O - | tar -xz
+          curl -sLRJ "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN&license_key=${{ secrets.MAX_MIND_LICENSE_KEY }}&suffix=tar.gz" | tar -xz
           mv GeoLite2-ASN_* GeoLite2-ASN
 
       - name: update GeoLite2-Country
         run: |
           rm -rf GeoLite2-Country
-          wget -q "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=${{ secrets.MAX_MIND_LICENSE_KEY }}&suffix=tar.gz" -O - | tar -xz
+          curl -sLRJ "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=${{ secrets.MAX_MIND_LICENSE_KEY }}&suffix=tar.gz" | tar -xz
           mv GeoLite2-Country_* GeoLite2-Country
 
       - name: update GeoLite2-City
         run: |
           rm -rf GeoLite2-City
-          wget -q "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=${{ secrets.MAX_MIND_LICENSE_KEY }}&suffix=tar.gz" -O - | tar -xz
+          curl -sLRJ "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=${{ secrets.MAX_MIND_LICENSE_KEY }}&suffix=tar.gz" | tar -xz
           mv GeoLite2-City_* GeoLite2-City
 
       - uses: stefanzweifel/git-auto-commit-action@v4
